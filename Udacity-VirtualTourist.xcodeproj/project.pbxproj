@@ -1,0 +1,325 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		C85AB87A1F4A20C900DF237B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85AB8791F4A20C900DF237B /* AppDelegate.swift */; };
+		C85AB87C1F4A20C900DF237B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85AB87B1F4A20C900DF237B /* ViewController.swift */; };
+		C85AB87F1F4A20C900DF237B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C85AB87D1F4A20C900DF237B /* Main.storyboard */; };
+		C85AB8821F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C85AB8801F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld */; };
+		C85AB8841F4A20C900DF237B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C85AB8831F4A20C900DF237B /* Assets.xcassets */; };
+		C85AB8871F4A20C900DF237B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C85AB8851F4A20C900DF237B /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C85AB8761F4A20C900DF237B /* Udacity-VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Udacity-VirtualTourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C85AB8791F4A20C900DF237B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C85AB87B1F4A20C900DF237B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C85AB87E1F4A20C900DF237B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C85AB8811F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Udacity_VirtualTourist.xcdatamodel; sourceTree = "<group>"; };
+		C85AB8831F4A20C900DF237B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		C85AB8861F4A20C900DF237B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C85AB8881F4A20C900DF237B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C85AB8731F4A20C900DF237B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C85AB86D1F4A20C900DF237B = {
+			isa = PBXGroup;
+			children = (
+				C85AB8781F4A20C900DF237B /* Udacity-VirtualTourist */,
+				C85AB8771F4A20C900DF237B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C85AB8771F4A20C900DF237B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C85AB8761F4A20C900DF237B /* Udacity-VirtualTourist.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C85AB8781F4A20C900DF237B /* Udacity-VirtualTourist */ = {
+			isa = PBXGroup;
+			children = (
+				C85AB8791F4A20C900DF237B /* AppDelegate.swift */,
+				C85AB87B1F4A20C900DF237B /* ViewController.swift */,
+				C85AB87D1F4A20C900DF237B /* Main.storyboard */,
+				C85AB8831F4A20C900DF237B /* Assets.xcassets */,
+				C85AB8851F4A20C900DF237B /* LaunchScreen.storyboard */,
+				C85AB8881F4A20C900DF237B /* Info.plist */,
+				C85AB8801F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld */,
+			);
+			path = "Udacity-VirtualTourist";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C85AB8751F4A20C900DF237B /* Udacity-VirtualTourist */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C85AB88B1F4A20C900DF237B /* Build configuration list for PBXNativeTarget "Udacity-VirtualTourist" */;
+			buildPhases = (
+				C85AB8721F4A20C900DF237B /* Sources */,
+				C85AB8731F4A20C900DF237B /* Frameworks */,
+				C85AB8741F4A20C900DF237B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Udacity-VirtualTourist";
+			productName = "Udacity-VirtualTourist";
+			productReference = C85AB8761F4A20C900DF237B /* Udacity-VirtualTourist.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C85AB86E1F4A20C900DF237B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0830;
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Sanket Ray";
+				TargetAttributes = {
+					C85AB8751F4A20C900DF237B = {
+						CreatedOnToolsVersion = 8.3.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = C85AB8711F4A20C900DF237B /* Build configuration list for PBXProject "Udacity-VirtualTourist" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = C85AB86D1F4A20C900DF237B;
+			productRefGroup = C85AB8771F4A20C900DF237B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C85AB8751F4A20C900DF237B /* Udacity-VirtualTourist */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C85AB8741F4A20C900DF237B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C85AB8871F4A20C900DF237B /* LaunchScreen.storyboard in Resources */,
+				C85AB8841F4A20C900DF237B /* Assets.xcassets in Resources */,
+				C85AB87F1F4A20C900DF237B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C85AB8721F4A20C900DF237B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C85AB8821F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld in Sources */,
+				C85AB87C1F4A20C900DF237B /* ViewController.swift in Sources */,
+				C85AB87A1F4A20C900DF237B /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C85AB87D1F4A20C900DF237B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C85AB87E1F4A20C900DF237B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		C85AB8851F4A20C900DF237B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C85AB8861F4A20C900DF237B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C85AB8891F4A20C900DF237B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C85AB88A1F4A20C900DF237B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C85AB88C1F4A20C900DF237B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Udacity-VirtualTourist/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Chingel.Udacity-VirtualTourist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		C85AB88D1F4A20C900DF237B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Udacity-VirtualTourist/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Chingel.Udacity-VirtualTourist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C85AB8711F4A20C900DF237B /* Build configuration list for PBXProject "Udacity-VirtualTourist" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C85AB8891F4A20C900DF237B /* Debug */,
+				C85AB88A1F4A20C900DF237B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C85AB88B1F4A20C900DF237B /* Build configuration list for PBXNativeTarget "Udacity-VirtualTourist" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C85AB88C1F4A20C900DF237B /* Debug */,
+				C85AB88D1F4A20C900DF237B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C85AB8801F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C85AB8811F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodel */,
+			);
+			currentVersion = C85AB8811F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodel */;
+			path = Udacity_VirtualTourist.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = C85AB86E1F4A20C900DF237B /* Project object */;
+}
