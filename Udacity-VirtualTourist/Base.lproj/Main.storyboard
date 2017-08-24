@@ -113,6 +113,10 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="d6p-gg-uls" id="Ver-GR-3Bv"/>
+                                    <outlet property="delegate" destination="d6p-gg-uls" id="lNb-Nd-zlg"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

@@ -26,14 +26,18 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         myCollectionView.collectionViewLayout = layout
         
         addAnnotationToMap(latitude: (pin?.latitude)!,longitude: (pin?.longitude)!)
+       
+        if pin?.photo?.count == 0 {
+            getImageURLSFromFlickr(latitude: (pin?.latitude)!, longitude: (pin?.longitude)!)
+        }
         
-        getImageURLSFromFlickr(latitude: (pin?.latitude)!, longitude: (pin?.longitude)!)
         
         do {
             try fetchedResultsController.performFetch()
         }catch{
             print("An error occured")
         }
+        
 
     }
 //    IBOutlets
