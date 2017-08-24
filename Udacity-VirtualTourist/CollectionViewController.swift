@@ -8,8 +8,9 @@
 
 import UIKit
 import MapKit
+import CoreData
 
-class CollectionViewController: UIViewController {
+class CollectionViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
     var pin : Pin?
     
@@ -28,7 +29,11 @@ class CollectionViewController: UIViewController {
         
         getImageURLSFromFlickr(latitude: (pin?.latitude)!, longitude: (pin?.longitude)!)
         
-        print("🍒",pin?.photo?.count,"🍒",pin?.latitude,pin?.longitude)
+        do {
+            try fetchedResultsController.performFetch()
+        }catch{
+            print("An error occured")
+        }
 
     }
 //    IBOutlets
@@ -49,4 +54,84 @@ class CollectionViewController: UIViewController {
         
     }
 
+    lazy var fetchedResultsController : NSFetchedResultsController = { () -> NSFetchedResultsController<Photo> in
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<Photo>(entityName: "Photo")
+        let sortDescriptor = NSSortDescriptor(key: "photoURL", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        let frc  = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+        return frc
+    }()
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            if let insertIndexPath = newIndexPath{
+                self.myCollectionView.insertItems(at: [insertIndexPath])
+            }
+        case .delete:
+            if let deleteIndexpath = indexPath{
+                self.myCollectionView.deleteItems(at: [deleteIndexpath])
+            }
+        case .update:
+            if let updateIndexPath = indexPath {
+                let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
+                let photo = self.fetchedResultsController.object(at: updateIndexPath)
+                cell.image.image = UIImage(data: photo.photoData! as Data)
+            }
+        case .move:
+            if let deleteIndexPath = indexPath {
+                self.myCollectionView.deleteItems(at: [deleteIndexPath])
+            }
+            if let insertIndexPath = newIndexPath {
+                self.myCollectionView.insertItems(at: [insertIndexPath])
+            }
+        }
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            let sectionIndexSet = NSIndexSet(index: sectionIndex)
+            self.myCollectionView.insertSections(sectionIndexSet as IndexSet)
+        case .delete:
+            let sectionIndexSet = NSIndexSet(index: sectionIndex)
+            self.myCollectionView.deleteSections(sectionIndexSet as IndexSet)
+        default:
+            print("Nothing")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
+        return sectionName
+    }
+    
+}
+
+extension CollectionViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        if let sections = fetchedResultsController.sections {
+            return sections.count
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let sections = fetchedResultsController.sections {
+            let currentSection = sections[section]
+            return currentSection.numberOfObjects
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
+        let photo = fetchedResultsController.object(at: indexPath)
+        
+        cell.image.image = UIImage(data: photo.photoData! as Data)
+        return cell
+    }
 }
