@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C84025511F4AFDA100E50E3D /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84025501F4AFDA100E50E3D /* CollectionViewController.swift */; };
+		C84025531F4B712900E50E3D /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84025521F4B712900E50E3D /* CollectionViewCell.swift */; };
 		C85AB87A1F4A20C900DF237B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85AB8791F4A20C900DF237B /* AppDelegate.swift */; };
 		C85AB87C1F4A20C900DF237B /* PinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85AB87B1F4A20C900DF237B /* PinViewController.swift */; };
 		C85AB87F1F4A20C900DF237B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C85AB87D1F4A20C900DF237B /* Main.storyboard */; };
@@ -15,10 +16,13 @@
 		C85AB8841F4A20C900DF237B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C85AB8831F4A20C900DF237B /* Assets.xcassets */; };
 		C85AB8871F4A20C900DF237B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C85AB8851F4A20C900DF237B /* LaunchScreen.storyboard */; };
 		C85AB8901F4A212C00DF237B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C85AB88F1F4A212C00DF237B /* MapKit.framework */; };
+		C8FFAAFB1F4D529A00C37D1B /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FFAAFA1F4D529A00C37D1B /* Networking.swift */; };
+		C8FFAAFD1F4D541600C37D1B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8FFAAFC1F4D541600C37D1B /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C84025501F4AFDA100E50E3D /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		C84025521F4B712900E50E3D /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		C85AB8761F4A20C900DF237B /* Udacity-VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Udacity-VirtualTourist.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C85AB8791F4A20C900DF237B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C85AB87B1F4A20C900DF237B /* PinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinViewController.swift; sourceTree = "<group>"; };
@@ -28,6 +32,8 @@
 		C85AB8861F4A20C900DF237B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C85AB8881F4A20C900DF237B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C85AB88F1F4A212C00DF237B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C8FFAAFA1F4D529A00C37D1B /* Networking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
+		C8FFAAFC1F4D541600C37D1B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,8 +69,11 @@
 			isa = PBXGroup;
 			children = (
 				C85AB8791F4A20C900DF237B /* AppDelegate.swift */,
+				C8FFAAFC1F4D541600C37D1B /* Constants.swift */,
 				C85AB87B1F4A20C900DF237B /* PinViewController.swift */,
 				C84025501F4AFDA100E50E3D /* CollectionViewController.swift */,
+				C8FFAAFA1F4D529A00C37D1B /* Networking.swift */,
+				C84025521F4B712900E50E3D /* CollectionViewCell.swift */,
 				C85AB87D1F4A20C900DF237B /* Main.storyboard */,
 				C85AB8831F4A20C900DF237B /* Assets.xcassets */,
 				C85AB8851F4A20C900DF237B /* LaunchScreen.storyboard */,
@@ -159,8 +168,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C84025531F4B712900E50E3D /* CollectionViewCell.swift in Sources */,
 				C84025511F4AFDA100E50E3D /* CollectionViewController.swift in Sources */,
 				C85AB8821F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld in Sources */,
+				C8FFAAFB1F4D529A00C37D1B /* Networking.swift in Sources */,
+				C8FFAAFD1F4D541600C37D1B /* Constants.swift in Sources */,
 				C85AB87C1F4A20C900DF237B /* PinViewController.swift in Sources */,
 				C85AB87A1F4A20C900DF237B /* AppDelegate.swift in Sources */,
 			);

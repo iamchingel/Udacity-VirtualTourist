@@ -70,12 +70,71 @@
                     <view key="view" contentMode="scaleToFill" id="hXt-zB-KAg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="nJb-CD-QYS">
+                                <rect key="frame" x="0.0" y="64" width="375" height="160"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="xNU-bq-rNg"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="d6p-gg-uls" id="nLN-R5-LoW"/>
+                                </connections>
+                            </mapView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nBz-Qj-BPo">
+                                <rect key="frame" x="0.0" y="224" width="375" height="443"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JKi-wS-mc4">
+                                    <size key="itemSize" width="125" height="125"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Lit-Df-Slk" customClass="CollectionViewCell" customModule="Udacity_VirtualTourist" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a0I-zn-OHQ">
+                                                    <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="a0I-zn-OHQ" secondAttribute="trailing" id="78n-d8-Vxs"/>
+                                            <constraint firstItem="a0I-zn-OHQ" firstAttribute="top" secondItem="Lit-Df-Slk" secondAttribute="top" id="DKa-y0-uxr"/>
+                                            <constraint firstItem="a0I-zn-OHQ" firstAttribute="leading" secondItem="Lit-Df-Slk" secondAttribute="leading" id="Opx-7q-yrU"/>
+                                            <constraint firstAttribute="bottom" secondItem="a0I-zn-OHQ" secondAttribute="bottom" id="oYf-fp-1Wf"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="image" destination="a0I-zn-OHQ" id="cwm-XW-J4y"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="nJb-CD-QYS" firstAttribute="top" secondItem="08W-IH-rJx" secondAttribute="bottom" id="2Tc-pg-K3w"/>
+                            <constraint firstItem="nBz-Qj-BPo" firstAttribute="top" secondItem="nJb-CD-QYS" secondAttribute="bottom" id="C9v-Y5-thz"/>
+                            <constraint firstItem="g1v-xA-3fV" firstAttribute="top" secondItem="nBz-Qj-BPo" secondAttribute="bottom" id="DHk-Qv-1QH"/>
+                            <constraint firstAttribute="trailing" secondItem="nJb-CD-QYS" secondAttribute="trailing" id="Fg2-mA-3jL"/>
+                            <constraint firstAttribute="trailing" secondItem="nBz-Qj-BPo" secondAttribute="trailing" id="GcJ-Ju-SgX"/>
+                            <constraint firstItem="nBz-Qj-BPo" firstAttribute="leading" secondItem="hXt-zB-KAg" secondAttribute="leading" id="dfm-uN-iUT"/>
+                            <constraint firstItem="nBz-Qj-BPo" firstAttribute="top" secondItem="nJb-CD-QYS" secondAttribute="bottom" id="hVb-VK-L5i"/>
+                            <constraint firstItem="nJb-CD-QYS" firstAttribute="leading" secondItem="hXt-zB-KAg" secondAttribute="leading" id="kee-nN-7ex"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="map" destination="nJb-CD-QYS" id="Mr3-17-EU0"/>
+                        <outlet property="myCollectionView" destination="nBz-Qj-BPo" id="f3Y-9f-DX0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lxw-Fa-olB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1847" y="139"/>
+            <point key="canvasLocation" x="1845.5999999999999" y="138.98050974512745"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zMR-2Q-Qz8">
