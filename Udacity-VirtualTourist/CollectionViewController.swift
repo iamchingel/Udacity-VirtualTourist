@@ -147,9 +147,9 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let record = fetchedResultsController.object(at: indexPath)
+        let photo = fetchedResultsController.object(at: indexPath)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.persistentContainer.viewContext
-        managedContext.delete(record)
+        managedContext.delete(photo)
     }
 }
