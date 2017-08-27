@@ -27,17 +27,22 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         
         addAnnotationToMap(latitude: (pin?.latitude)!,longitude: (pin?.longitude)!)
        
-        if pin?.photo?.count == 0 {
+        if (pin?.photo?.count)! == 0 {
             getImageURLSFromFlickr(latitude: (pin?.latitude)!, longitude: (pin?.longitude)!)
+            do{
+                try fetchedResultsController.performFetch()
+            }catch{
+                print("An error occured")
+            }
         }
-        
-        
-        do {
-            try fetchedResultsController.performFetch()
-        }catch{
-            print("An error occured")
+    
+        if (pin?.photo?.count)! > 0 {
+            do {
+                try fetchedResultsController.performFetch()
+            }catch{
+                print("An error occured")
+            }
         }
-        
 
     }
 //    IBOutlets
@@ -79,12 +84,12 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             if let deleteIndexpath = indexPath{
                 self.myCollectionView.deleteItems(at: [deleteIndexpath])
             }
-        case .update:
-            if let updateIndexPath = indexPath {
-                let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
-                let photo = self.fetchedResultsController.object(at: updateIndexPath)
-                cell.image.image = UIImage(data: photo.photoData! as Data)
-            }
+//        case .update:
+//            if let updateIndexPath = indexPath {
+//                let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
+//                let photo = self.fetchedResultsController.object(at: updateIndexPath)
+//                cell.image.image = UIImage(data: photo.photoData! as Data)
+//            }
         case .move:
             if let deleteIndexPath = indexPath {
                 self.myCollectionView.deleteItems(at: [deleteIndexPath])
@@ -92,6 +97,8 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             if let insertIndexPath = newIndexPath {
                 self.myCollectionView.insertItems(at: [insertIndexPath])
             }
+        default:
+            ""
         }
     }
 
@@ -137,5 +144,12 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
         
         cell.image.image = UIImage(data: photo.photoData! as Data)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let record = fetchedResultsController.object(at: indexPath)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
+        managedContext.delete(record)
     }
 }

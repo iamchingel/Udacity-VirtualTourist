@@ -24,7 +24,7 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="9f4-Sm-HMM">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="uYG-bT-hBO"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="lvY-s2-SLG"/>
                                 </connections>
                             </mapView>
                         </subviews>
@@ -97,7 +97,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a0I-zn-OHQ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="a0I-zn-OHQ">
                                                     <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                                                 </imageView>
                                             </subviews>
