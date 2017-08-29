@@ -84,15 +84,14 @@ func getImageDataFromURL(url : String){
 }
 
 func saveImageDataToCore(imageData : Data){
-    let pin = CollectionViewController().pin
+//    let pin = CollectionViewController().pin
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let managedContext = appDelegate.persistentContainer.viewContext
     let entity = NSEntityDescription.entity(forEntityName: "Photo", in: managedContext)!
     let photo = NSManagedObject(entity: entity, insertInto: managedContext) as! Photo
     
     photo.photoData = imageData as NSData
-    photo.pin = pin
-    
+    photo.pin = selectedPin
 
         do{
             try managedContext.save()

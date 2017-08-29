@@ -13,7 +13,7 @@ import CoreData
 class PinViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
     var allPins = [Pin]()
-    var selectedPin : Pin? = nil
+//    var selectedPin : Pin? = nil (has been declared as global)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,11 +67,11 @@ class PinViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
         }
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let collectionViewController = segue.destination as! CollectionViewController
-        collectionViewController.pin = selectedPin
-    }
-    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let collectionViewController = segue.destination as! CollectionViewController
+//        collectionViewController.pin = selectedPin
+//    }
+//    
     func getCoordinates(gestureRecognizer : UILongPressGestureRecognizer){
     
         if editButton.isEnabled == true {

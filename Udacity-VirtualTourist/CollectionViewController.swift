@@ -12,7 +12,7 @@ import CoreData
 
 class CollectionViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
-    var pin : Pin?
+//    var pin : Pin?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +25,10 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         layout.minimumLineSpacing = 5
         myCollectionView.collectionViewLayout = layout
         
-        addAnnotationToMap(latitude: (pin?.latitude)!,longitude: (pin?.longitude)!)
+        addAnnotationToMap(latitude: (selectedPin?.latitude)!,longitude: (selectedPin?.longitude)!)
        
-        if (pin?.photo?.count)! == 0 {
-            getImageURLSFromFlickr(latitude: (pin?.latitude)!, longitude: (pin?.longitude)!)
+        if (selectedPin?.photo?.count)! == 0 {
+            getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!)
             do{
                 try fetchedResultsController.performFetch()
             }catch{
@@ -36,7 +36,7 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             }
         }
     
-        if (pin?.photo?.count)! > 0 {
+        if (selectedPin?.photo?.count)! > 0 {
             do {
                 try fetchedResultsController.performFetch()
             }catch{
@@ -69,6 +69,7 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         let fetchRequest = NSFetchRequest<Photo>(entityName: "Photo")
         let sortDescriptor = NSSortDescriptor(key: "photoURL", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.predicate = NSPredicate(format: "pin = %@", argumentArray: [selectedPin!])
         let frc  = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: managedContext, sectionNameKeyPath: nil, cacheName: nil)
         frc.delegate = self
         return frc
@@ -98,7 +99,7 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
                 self.myCollectionView.insertItems(at: [insertIndexPath])
             }
         default:
-            ""
+            print("")
         }
     }
 

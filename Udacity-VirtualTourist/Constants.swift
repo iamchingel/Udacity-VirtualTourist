@@ -13,3 +13,4 @@ let extras = "url_m"
 let apiBaseURL = "https://api.flickr.com/services/rest/"
 let apiMethod = "flickr.photos.search"
 let radius = "5"
+var selectedPin : Pin?
