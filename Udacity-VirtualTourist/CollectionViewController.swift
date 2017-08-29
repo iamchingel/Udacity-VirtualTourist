@@ -9,10 +9,13 @@
 import UIKit
 import MapKit
 import CoreData
+import CoreLocation
 
 class CollectionViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
-//    var pin : Pin?
+//  var pin : Pin?
+    var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
+    @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,26 +29,28 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         myCollectionView.collectionViewLayout = layout
         
         addAnnotationToMap(latitude: (selectedPin?.latitude)!,longitude: (selectedPin?.longitude)!)
-       
-        if (selectedPin?.photo?.count)! == 0 {
-            getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!)
-            do{
-                try fetchedResultsController.performFetch()
-            }catch{
-                print("An error occured")
+  
+        getDetailsFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!) { (pages, numberOfImages) in
+            if pages != nil {
+                print(pages!,"🍽")
+            }
+            if numberOfImages != nil {
+                print(numberOfImages!,"🍽")
             }
         }
-    
-        if (selectedPin?.photo?.count)! > 0 {
-            do {
-                try fetchedResultsController.performFetch()
-            }catch{
-                print("An error occured")
-            }
+        
+        if (selectedPin?.photo?.count)! == 0 {
+            getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!)
+        }
+
+        do {
+            try self.fetchedResultsController.performFetch()
+        }catch{
+            print("An error occured")
         }
 
     }
-//    IBOutlets
+//  IBOutlets
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var myCollectionView: UICollectionView!
     
@@ -85,12 +90,12 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             if let deleteIndexpath = indexPath{
                 self.myCollectionView.deleteItems(at: [deleteIndexpath])
             }
-//        case .update:
-//            if let updateIndexPath = indexPath {
-//                let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
-//                let photo = self.fetchedResultsController.object(at: updateIndexPath)
-//                cell.image.image = UIImage(data: photo.photoData! as Data)
-//            }
+//      case .update:
+//          if let updateIndexPath = indexPath {
+//             let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
+//             let photo = self.fetchedResultsController.object(at: updateIndexPath)
+//             cell.image.image = UIImage(data: photo.photoData! as Data)
+//          }
         case .move:
             if let deleteIndexPath = indexPath {
                 self.myCollectionView.deleteItems(at: [deleteIndexPath])
@@ -120,6 +125,9 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         return sectionName
     }
     
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.myCollectionView.numberOfItems(inSection: 0)
+    }
 }
 
 extension CollectionViewController : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -141,9 +149,11 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
+        
         let photo = fetchedResultsController.object(at: indexPath)
         
         cell.image.image = UIImage(data: photo.photoData! as Data)
+        
         return cell
     }
     
@@ -152,5 +162,62 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.persistentContainer.viewContext
         managedContext.delete(photo)
+        do{
+            try managedContext.save()
+        }catch {
+            print("Error while saving")
+        }
     }
 }
+
+func getDetailsFromFlickr(latitude : CLLocationDegrees, longitude : CLLocationDegrees, completion : @escaping (_ pages: Int?, _ numberOfImages: Int?)->Void){
+    let url = NSMutableURLRequest(url: URL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=95535bebaeada5fc58bb74240481f3ce&lat=\(latitude)&lon=\(longitude)&extras=url_m&per_page=20&format=json&nojsoncallback=1")!)
+    
+    let session = URLSession.shared
+    let task = session.dataTask(with: url as URLRequest) { (data, response, error) in
+        
+        guard error == nil else{
+            print("error while requesting data")
+            return
+        }
+        guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+            print("status code was other than 2xx")
+            return
+        }
+        guard let data = data else {
+            print("request for data failed")
+            return
+        }
+        
+        let parsedResult : [String:AnyObject]!
+        do {
+            parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
+        }catch {
+            print("error parsing data")
+            return
+        }
+        
+        guard let photos = parsedResult["photos"] as? [String:AnyObject] else {
+            print("error getting the photos")
+            return
+        }
+        totalPages = (photos["pages"])! as! Int
+        completion(totalPages, nil)
+        
+        guard let photo = photos["photo"] as? [[String:AnyObject]] else {
+            print("error getting the list of photos")
+            return
+        }
+        numberOfImagesInPage = (photo.count)
+        completion(nil,numberOfImagesInPage)
+    }
+    task.resume()
+}
+
+
+
+
+
+
+
+

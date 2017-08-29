@@ -89,6 +89,13 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
+                                <label key="backgroundView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y7Z-k2-x5E">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="443"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="Lit-Df-Slk" customClass="CollectionViewCell" customModule="Udacity_VirtualTourist" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
@@ -132,6 +139,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="label" destination="y7Z-k2-x5E" id="jcs-ba-uz2"/>
                         <outlet property="map" destination="nJb-CD-QYS" id="Mr3-17-EU0"/>
                         <outlet property="myCollectionView" destination="nBz-Qj-BPo" id="f3Y-9f-DX0"/>
                     </connections>

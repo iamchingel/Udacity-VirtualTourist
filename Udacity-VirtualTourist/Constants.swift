@@ -14,3 +14,5 @@ let apiBaseURL = "https://api.flickr.com/services/rest/"
 let apiMethod = "flickr.photos.search"
 let radius = "5"
 var selectedPin : Pin?
+var numberOfImagesInPage = 0
+var totalPages = 0
