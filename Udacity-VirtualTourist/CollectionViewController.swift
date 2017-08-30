@@ -41,7 +41,6 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             if numberOfImages != nil {
                 print(numberOfImages!,"🍝🍽🍝")
             }
-            
         }
         
         do {
@@ -52,26 +51,14 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
 
     }
     @IBAction func newImageCollection(_ sender: Any) {
+//        Need to delete all images and update data base ...but how???
+        
+
+        
+        
+        
         let randomPageNumber = arc4random_uniform(UInt32(totalPages)) + 1
         print(randomPageNumber,"🥕🥕🥕🥕🥕🥕🥕")
-        
-        let indexPath = myCollectionView.indexPathsForSelectedItems
-        for i in indexPath! {
-            let photo = fetchedResultsController.object(at: i)
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let managedContext = appDelegate.persistentContainer.viewContext
-            managedContext.delete(photo)
-            do{
-                try managedContext.save()
-            }catch {
-                print("Error while saving after deleting images")
-            }
-        }
-        do {
-            try self.fetchedResultsController.performFetch()
-        }catch{
-            print("An error occured")
-        }
         getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPageNumber))
     }
     
@@ -184,10 +171,11 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photo = fetchedResultsController.object(at: indexPath)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let managedContext = appDelegate.persistentContainer.viewContext
+        let photo = fetchedResultsController.object(at: indexPath)
         managedContext.delete(photo)
+        
         do{
             try managedContext.save()
         }catch {
