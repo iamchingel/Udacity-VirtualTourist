@@ -32,17 +32,17 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
   
         getDetailsFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!) { (pages, numberOfImages) in
             if pages != nil {
-                print(pages!,"🍽")
+                print(pages!,"🍝🍽🍝")
+                if (selectedPin?.photo?.count)! == 0 {
+                    getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!)
+                }
             }
             if numberOfImages != nil {
-                print(numberOfImages!,"🍽")
+                print(numberOfImages!,"🍝🍽🍝")
             }
+            
         }
         
-        if (selectedPin?.photo?.count)! == 0 {
-            getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!)
-        }
-
         do {
             try self.fetchedResultsController.performFetch()
         }catch{
@@ -125,9 +125,9 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         return sectionName
     }
     
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.myCollectionView.numberOfItems(inSection: 0)
-    }
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        self.myCollectionView.numberOfItems(inSection: 0)
+//    }
 }
 
 extension CollectionViewController : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -171,7 +171,8 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
 }
 
 func getDetailsFromFlickr(latitude : CLLocationDegrees, longitude : CLLocationDegrees, completion : @escaping (_ pages: Int?, _ numberOfImages: Int?)->Void){
-    let url = NSMutableURLRequest(url: URL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=95535bebaeada5fc58bb74240481f3ce&lat=\(latitude)&lon=\(longitude)&extras=url_m&per_page=20&format=json&nojsoncallback=1")!)
+    
+    let url = NSMutableURLRequest(url: URL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad83a09291b05b32fedea7e5993714d7&lat=\(latitude)&lon=\(longitude)&extras=url_m&per_page=20&format=json&nojsoncallback=1")!)
     
     let session = URLSession.shared
     let task = session.dataTask(with: url as URLRequest) { (data, response, error) in
@@ -213,6 +214,7 @@ func getDetailsFromFlickr(latitude : CLLocationDegrees, longitude : CLLocationDe
     }
     task.resume()
 }
+
 
 
 
