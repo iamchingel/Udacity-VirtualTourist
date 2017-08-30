@@ -33,8 +33,9 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         getDetailsFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!) { (pages, numberOfImages) in
             if pages != nil {
                 print(pages!,"🍝🍽🍝")
+                let randomPage = arc4random_uniform(UInt32(pages!)) + 1
                 if (selectedPin?.photo?.count)! == 0 {
-                    getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!)
+                    getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPage))
                 }
             }
             if numberOfImages != nil {
@@ -50,6 +51,31 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         }
 
     }
+    @IBAction func newImageCollection(_ sender: Any) {
+        let randomPageNumber = arc4random_uniform(UInt32(totalPages)) + 1
+        print(randomPageNumber,"🥕🥕🥕🥕🥕🥕🥕")
+        
+        let indexPath = myCollectionView.indexPathsForSelectedItems
+        for i in indexPath! {
+            let photo = fetchedResultsController.object(at: i)
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedContext = appDelegate.persistentContainer.viewContext
+            managedContext.delete(photo)
+            do{
+                try managedContext.save()
+            }catch {
+                print("Error while saving after deleting images")
+            }
+        }
+        do {
+            try self.fetchedResultsController.performFetch()
+        }catch{
+            print("An error occured")
+        }
+        getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPageNumber))
+    }
+    
+    
 //  IBOutlets
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var myCollectionView: UICollectionView!
@@ -125,9 +151,9 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         return sectionName
     }
     
-//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-//        self.myCollectionView.numberOfItems(inSection: 0)
-//    }
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.myCollectionView.numberOfItems(inSection: 0)
+    }
 }
 
 extension CollectionViewController : UICollectionViewDelegate, UICollectionViewDataSource {
