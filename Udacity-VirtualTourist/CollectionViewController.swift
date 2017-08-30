@@ -52,9 +52,22 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
     }
     @IBAction func newImageCollection(_ sender: Any) {
 //        Need to delete all images and update data base ...but how???
-        
-
-        
+//        
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let managedContext = appDelegate.persistentContainer.viewContext
+//        
+//        let indexPath = myCollectionView.indexPathsForVisibleItems
+//        for path in indexPath {
+//            myCollectionView.deleteItems(at: [path])
+//            let photo = fetchedResultsController.object(at: path)
+//            managedContext.delete(photo)
+//        }
+//
+//        do{
+//            try managedContext.save()
+//        }catch {
+//            print("Error while saving")
+//        }
         
         
         let randomPageNumber = arc4random_uniform(UInt32(totalPages)) + 1
