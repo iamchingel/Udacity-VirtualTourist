@@ -13,7 +13,6 @@ import CoreLocation
 
 class CollectionViewController: UIViewController, NSFetchedResultsControllerDelegate {
 
-//  var pin : Pin?
     var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
     @IBOutlet weak var label: UILabel!
     var insertedIndexPaths = [IndexPath]()
@@ -31,7 +30,6 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         layout.minimumLineSpacing = 5
         myCollectionView.collectionViewLayout = layout
 
-        
         addAnnotationToMap(latitude: (selectedPin?.latitude)!,longitude: (selectedPin?.longitude)!)
   
         getDetailsFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!) { (pages, numberOfImages) in
@@ -72,9 +70,9 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         let managedContext = appDelegate.persistentContainer.viewContext
         
         while((selectedPin?.photo?.count)! > 0){
+            
             let photo = fetchedResultsController.object(at: [0,0])
             managedContext.delete(photo)
-        
             do{
                 try managedContext.save()
             }catch {
@@ -93,7 +91,6 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
     @IBOutlet weak var myCollectionView: UICollectionView!
     
     func addAnnotationToMap(latitude: CLLocationDegrees, longitude: CLLocationDegrees){
-        
         let annotation = MKPointAnnotation()
         annotation.coordinate.latitude = latitude
         annotation.coordinate.longitude = longitude
@@ -103,7 +100,6 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         let span = MKCoordinateSpanMake(5, 5)
         let region = MKCoordinateRegion(center: center, span: span)
         map.setRegion(region, animated: true)
-        
     }
 
     lazy var fetchedResultsController : NSFetchedResultsController = { () -> NSFetchedResultsController<Photo> in
@@ -147,7 +143,6 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             }
         }
     }
-    
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
@@ -161,8 +156,6 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             print("Nothing")
         }
     }
-    
-    
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
         return sectionName
@@ -214,50 +207,6 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     }
 }
 
-func getDetailsFromFlickr(latitude : CLLocationDegrees, longitude : CLLocationDegrees, completion : @escaping (_ pages: Int?, _ numberOfImages: Int?)->Void){
-    
-    let url = NSMutableURLRequest(url: URL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=ad83a09291b05b32fedea7e5993714d7&lat=\(latitude)&lon=\(longitude)&extras=url_m&per_page=20&format=json&nojsoncallback=1")!)
-    
-    let session = URLSession.shared
-    let task = session.dataTask(with: url as URLRequest) { (data, response, error) in
-        
-        guard error == nil else{
-            print("error while requesting data")
-            return
-        }
-        guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
-            print("status code was other than 2xx")
-            return
-        }
-        guard let data = data else {
-            print("request for data failed")
-            return
-        }
-        
-        let parsedResult : [String:AnyObject]!
-        do {
-            parsedResult = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String:AnyObject]
-        }catch {
-            print("error parsing data")
-            return
-        }
-        
-        guard let photos = parsedResult["photos"] as? [String:AnyObject] else {
-            print("error getting the photos")
-            return
-        }
-        totalPages = (photos["pages"])! as! Int
-        completion(totalPages, nil)
-        
-        guard let photo = photos["photo"] as? [[String:AnyObject]] else {
-            print("error getting the list of photos")
-            return
-        }
-        numberOfImagesInPage = (photo.count)
-        completion(nil,numberOfImagesInPage)
-    }
-    task.resume()
-}
 
 
 

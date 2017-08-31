@@ -48,6 +48,65 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C84C89141F5863B70025A452 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C84C89151F5863C90025A452 /* Clients */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		C84C89151F5863C90025A452 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				C84C89161F5863D40025A452 /* Flickr */,
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		C84C89161F5863D40025A452 /* Flickr */ = {
+			isa = PBXGroup;
+			children = (
+				C8FFAAFA1F4D529A00C37D1B /* Networking.swift */,
+			);
+			name = Flickr;
+			sourceTree = "<group>";
+		};
+		C84C89181F5864CB0025A452 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C85AB87B1F4A20C900DF237B /* PinViewController.swift */,
+				C84025501F4AFDA100E50E3D /* CollectionViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		C84C89191F5864F00025A452 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				C85AB87D1F4A20C900DF237B /* Main.storyboard */,
+				C85AB8831F4A20C900DF237B /* Assets.xcassets */,
+				C85AB8851F4A20C900DF237B /* LaunchScreen.storyboard */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		C84C891A1F58650A0025A452 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C85AB8881F4A20C900DF237B /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C84C891B1F5865480025A452 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C84025521F4B712900E50E3D /* CollectionViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		C85AB86D1F4A20C900DF237B = {
 			isa = PBXGroup;
 			children = (
@@ -70,15 +129,12 @@
 			children = (
 				C85AB8791F4A20C900DF237B /* AppDelegate.swift */,
 				C8FFAAFC1F4D541600C37D1B /* Constants.swift */,
-				C85AB87B1F4A20C900DF237B /* PinViewController.swift */,
-				C84025501F4AFDA100E50E3D /* CollectionViewController.swift */,
-				C8FFAAFA1F4D529A00C37D1B /* Networking.swift */,
-				C84025521F4B712900E50E3D /* CollectionViewCell.swift */,
-				C85AB87D1F4A20C900DF237B /* Main.storyboard */,
-				C85AB8831F4A20C900DF237B /* Assets.xcassets */,
-				C85AB8851F4A20C900DF237B /* LaunchScreen.storyboard */,
-				C85AB8881F4A20C900DF237B /* Info.plist */,
+				C84C89141F5863B70025A452 /* Model */,
 				C85AB8801F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld */,
+				C84C891B1F5865480025A452 /* View */,
+				C84C89181F5864CB0025A452 /* Controller */,
+				C84C89191F5864F00025A452 /* Assets */,
+				C84C891A1F58650A0025A452 /* Supporting Files */,
 			);
 			path = "Udacity-VirtualTourist";
 			sourceTree = "<group>";
