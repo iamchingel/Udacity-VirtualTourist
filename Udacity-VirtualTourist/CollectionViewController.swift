@@ -16,6 +16,9 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
 //  var pin : Pin?
     var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
     @IBOutlet weak var label: UILabel!
+    var insertedIndexPaths = [IndexPath]()
+    var deletedIndexPaths = [IndexPath]()
+    var updatedIndexPaths = [IndexPath]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +44,13 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             if numberOfImages != nil {
                 print(numberOfImages!,"🍝🍽🍝")
             }
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let managedContext = appDelegate.persistentContainer.viewContext
+            do{
+                try managedContext.save()
+            }catch {
+                print("Error saving")
+            }
         }
         
         do {
@@ -51,27 +61,23 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
 
     }
     @IBAction func newImageCollection(_ sender: Any) {
-//        Need to delete all images and update data base ...but how???
-//        
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let managedContext = appDelegate.persistentContainer.viewContext
-//        
-//        let indexPath = myCollectionView.indexPathsForVisibleItems
-//        for path in indexPath {
-//            myCollectionView.deleteItems(at: [path])
-//            let photo = fetchedResultsController.object(at: path)
-//            managedContext.delete(photo)
-//        }
-//
-//        do{
-//            try managedContext.save()
-//        }catch {
-//            print("Error while saving")
-//        }
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let managedContext = appDelegate.persistentContainer.viewContext
         
+        while((selectedPin?.photo?.count)! > 0){
+            let photo = fetchedResultsController.object(at: [0,0])
+            managedContext.delete(photo)
         
+            do{
+                try managedContext.save()
+            }catch {
+                print("Error while saving")
+            }
+        }
+
         let randomPageNumber = arc4random_uniform(UInt32(totalPages)) + 1
-        print(randomPageNumber,"🥕🥕🥕🥕🥕🥕🥕")
+        print(totalPages,randomPageNumber,"🥕🥕🥕🥕🥕🥕🥕")
         getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPageNumber))
     }
     
@@ -107,21 +113,25 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
     }()
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
         switch type {
         case .insert:
             if let insertIndexPath = newIndexPath{
                 self.myCollectionView.insertItems(at: [insertIndexPath])
+                self.insertedIndexPaths.append(newIndexPath!)
             }
         case .delete:
             if let deleteIndexpath = indexPath{
                 self.myCollectionView.deleteItems(at: [deleteIndexpath])
+                self.deletedIndexPaths.append(indexPath!)
             }
-//      case .update:
-//          if let updateIndexPath = indexPath {
-//             let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
-//             let photo = self.fetchedResultsController.object(at: updateIndexPath)
-//             cell.image.image = UIImage(data: photo.photoData! as Data)
-//          }
+        case .update:
+            if let updateIndexPath = indexPath {
+               let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
+               let photo = self.fetchedResultsController.object(at: updateIndexPath)
+               cell.image.image = UIImage(data: photo.photoData! as Data)
+               self.updatedIndexPaths.append(indexPath!)
+            }
         case .move:
             if let deleteIndexPath = indexPath {
                 self.myCollectionView.deleteItems(at: [deleteIndexPath])
@@ -129,10 +139,9 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             if let insertIndexPath = newIndexPath {
                 self.myCollectionView.insertItems(at: [insertIndexPath])
             }
-        default:
-            print("")
         }
     }
+    
 
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
         switch type {
@@ -146,6 +155,8 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
             print("Nothing")
         }
     }
+    
+    
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
         return sectionName
