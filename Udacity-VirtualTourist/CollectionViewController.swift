@@ -30,6 +30,7 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         layout.minimumInteritemSpacing = 3
         layout.minimumLineSpacing = 5
         myCollectionView.collectionViewLayout = layout
+
         
         addAnnotationToMap(latitude: (selectedPin?.latitude)!,longitude: (selectedPin?.longitude)!)
   
@@ -41,8 +42,13 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
                     getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPage))
                 }
             }
+            
             if numberOfImages != nil {
                 print(numberOfImages!,"🍝🍽🍝")
+                if (numberOfImages! == 0 ){
+                    self.label.isHidden = false
+                    self.label.text = "NO IMAGE FOUND"
+                }
             }
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let managedContext = appDelegate.persistentContainer.viewContext
