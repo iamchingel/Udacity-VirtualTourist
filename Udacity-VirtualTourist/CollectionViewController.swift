@@ -11,7 +11,7 @@ import MapKit
 import CoreData
 import CoreLocation
 
-class CollectionViewController: UIViewController, NSFetchedResultsControllerDelegate {
+class CollectionViewController: UIViewController {
 
     var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
     @IBOutlet weak var label: UILabel!
@@ -114,56 +114,7 @@ class CollectionViewController: UIViewController, NSFetchedResultsControllerDele
         return frc
     }()
     
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
-        switch type {
-        case .insert:
-            if let insertIndexPath = newIndexPath{
-                self.myCollectionView.insertItems(at: [insertIndexPath])
-                self.insertedIndexPaths.append(newIndexPath!)
-            }
-        case .delete:
-            if let deleteIndexpath = indexPath{
-                self.myCollectionView.deleteItems(at: [deleteIndexpath])
-                self.deletedIndexPaths.append(indexPath!)
-            }
-        case .update:
-            if let updateIndexPath = indexPath {
-               let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
-               let photo = self.fetchedResultsController.object(at: updateIndexPath)
-               cell.image.image = UIImage(data: photo.photoData! as Data)
-               self.updatedIndexPaths.append(indexPath!)
-            }
-        case .move:
-            if let deleteIndexPath = indexPath {
-                self.myCollectionView.deleteItems(at: [deleteIndexPath])
-            }
-            if let insertIndexPath = newIndexPath {
-                self.myCollectionView.insertItems(at: [insertIndexPath])
-            }
-        }
-    }
 
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-        switch type {
-        case .insert:
-            let sectionIndexSet = NSIndexSet(index: sectionIndex)
-            self.myCollectionView.insertSections(sectionIndexSet as IndexSet)
-        case .delete:
-            let sectionIndexSet = NSIndexSet(index: sectionIndex)
-            self.myCollectionView.deleteSections(sectionIndexSet as IndexSet)
-        default:
-            print("Nothing")
-        }
-    }
-    
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
-        return sectionName
-    }
-    
-    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        self.myCollectionView.numberOfItems(inSection: 0)
-    }
 }
 
 extension CollectionViewController : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -186,9 +137,21 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
+        let activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
+        
+        activityIndicator.isHidden = false
+        activityIndicator.center = CGPoint(x: cell.frame.width/3, y: cell.frame.height/3)
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.layer.zPosition = 1
+        cell.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+        
+        cell.backgroundColor = UIColor.gray
         let photo = fetchedResultsController.object(at: indexPath)
         
         cell.image.image = UIImage(data: photo.photoData! as Data)
+        activityIndicator.stopAnimating()
         
         return cell
     }
@@ -205,8 +168,63 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
             print("Error while saving")
         }
     }
+    
 }
 
+extension CollectionViewController : NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            if let insertIndexPath = newIndexPath{
+                self.myCollectionView.insertItems(at: [insertIndexPath])
+                self.insertedIndexPaths.append(newIndexPath!)
+            }
+        case .delete:
+            if let deleteIndexpath = indexPath{
+                self.myCollectionView.deleteItems(at: [deleteIndexpath])
+                self.deletedIndexPaths.append(indexPath!)
+            }
+        case .update:
+            if let updateIndexPath = indexPath {
+                let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
+                let photo = self.fetchedResultsController.object(at: updateIndexPath)
+                cell.image.image = UIImage(data: photo.photoData! as Data)
+                self.updatedIndexPaths.append(indexPath!)
+            }
+        case .move:
+            if let deleteIndexPath = indexPath {
+                self.myCollectionView.deleteItems(at: [deleteIndexPath])
+            }
+            if let insertIndexPath = newIndexPath {
+                self.myCollectionView.insertItems(at: [insertIndexPath])
+            }
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            let sectionIndexSet = NSIndexSet(index: sectionIndex)
+            self.myCollectionView.insertSections(sectionIndexSet as IndexSet)
+        case .delete:
+            let sectionIndexSet = NSIndexSet(index: sectionIndex)
+            self.myCollectionView.deleteSections(sectionIndexSet as IndexSet)
+        default:
+            print("Nothing")
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
+        return sectionName
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        self.myCollectionView.numberOfItems(inSection: 0)
+    }
+
+}
 
 
 
