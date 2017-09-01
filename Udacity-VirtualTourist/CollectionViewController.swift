@@ -149,9 +149,9 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
         activityIndicator.layer.zPosition = 1
         cell.addSubview(activityIndicator)
         
-        if flickrWasCalled == true{
+       
             activityIndicator.startAnimating()
-        }
+        
         
         let photo = fetchedResultsController.object(at: indexPath)
         
