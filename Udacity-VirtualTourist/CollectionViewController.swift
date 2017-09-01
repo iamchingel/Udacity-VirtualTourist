@@ -14,6 +14,8 @@ import CoreLocation
 class CollectionViewController: UIViewController {
 
     @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var newCollection: UIButton!
+    
     let activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
@@ -29,30 +31,36 @@ class CollectionViewController: UIViewController {
 
         addAnnotationToMap(latitude: (selectedPin?.latitude)!,longitude: (selectedPin?.longitude)!)
   
-        getDetailsFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!) { (pages, numberOfImages) in
-            if pages != nil {
-                print(pages!,"🍝🍽🍝")
-                let randomPage = arc4random_uniform(UInt32(pages!)) + 1
-                if (selectedPin?.photo?.count)! == 0 {
-                    getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPage))
-                }
-            }
+        if selectedPin?.photo?.count == 0 {
             
-            if numberOfImages != nil {
-                print(numberOfImages!,"🍝🍽🍝")
-                if (numberOfImages! == 0 ){
-                    self.label.isHidden = false
-                    self.label.text = "NO IMAGE FOUND"
+            getDetailsFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!) { (pages, numberOfImages) in
+                
+                if pages != nil {
+                    print(pages!,"🍝🍽🍝")
+                    let randomPage = arc4random_uniform(UInt32(pages!)) + 1
+                        getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPage))
                 }
-            }
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let managedContext = appDelegate.persistentContainer.viewContext
-            do{
-                try managedContext.save()
-            }catch {
-                print("Error saving")
+                
+                if numberOfImages != nil {
+                    print(numberOfImages!,"🍝🍽🍝")
+                    if (numberOfImages! == 0 ){
+                        DispatchQueue.main.async{
+                            self.label.isHidden = false
+                            self.label.text = "NO IMAGE FOUND"
+                            self.newCollection.isEnabled = false
+                        }
+                    }
+                }
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.persistentContainer.viewContext
+                do{
+                    try managedContext.save()
+                }catch {
+                    print("Error saving")
+                }
             }
         }
+        
         
         do {
             try self.fetchedResultsController.performFetch()
@@ -134,8 +142,6 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
-       
-        
         activityIndicator.isHidden = false
         activityIndicator.center = CGPoint(x: cell.frame.width/2, y: cell.frame.height/2)
         activityIndicator.hidesWhenStopped = true
@@ -151,7 +157,7 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
         
         cell.image.image = UIImage(data: photo.photoData! as Data)
         
-//        activityIndicator.stopAnimating()
+        activityIndicator.stopAnimating()
         
         return cell
         

@@ -160,6 +160,7 @@
                         <outlet property="label" destination="y7Z-k2-x5E" id="jcs-ba-uz2"/>
                         <outlet property="map" destination="nJb-CD-QYS" id="Mr3-17-EU0"/>
                         <outlet property="myCollectionView" destination="nBz-Qj-BPo" id="f3Y-9f-DX0"/>
+                        <outlet property="newCollection" destination="7K1-qK-vOC" id="H3d-Hs-PUS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lxw-Fa-olB" userLabel="First Responder" sceneMemberID="firstResponder"/>

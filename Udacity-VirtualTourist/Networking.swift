@@ -137,7 +137,8 @@ func getDetailsFromFlickr(latitude : CLLocationDegrees, longitude : CLLocationDe
             print("error getting the photos")
             return
         }
-        totalPages = (photos["pages"])! as! Int
+        
+        totalPages = (min((photos["pages"])! as! Int,4000/20))
         completion(totalPages, nil)
         
         guard let photo = photos["photo"] as? [[String:AnyObject]] else {
