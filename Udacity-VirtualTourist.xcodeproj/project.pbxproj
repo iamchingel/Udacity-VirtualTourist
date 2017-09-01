@@ -51,6 +51,7 @@
 		C84C89141F5863B70025A452 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C85AB8801F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld */,
 				C84C89151F5863C90025A452 /* Clients */,
 			);
 			name = Model;
@@ -130,7 +131,6 @@
 				C85AB8791F4A20C900DF237B /* AppDelegate.swift */,
 				C8FFAAFC1F4D541600C37D1B /* Constants.swift */,
 				C84C89141F5863B70025A452 /* Model */,
-				C85AB8801F4A20C900DF237B /* Udacity_VirtualTourist.xcdatamodeld */,
 				C84C891B1F5865480025A452 /* View */,
 				C84C89181F5864CB0025A452 /* Controller */,
 				C84C89191F5864F00025A452 /* Assets */,

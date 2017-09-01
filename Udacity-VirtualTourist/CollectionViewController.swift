@@ -13,11 +13,8 @@ import CoreLocation
 
 class CollectionViewController: UIViewController {
 
-    var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
     @IBOutlet weak var label: UILabel!
-    var insertedIndexPaths = [IndexPath]()
-    var deletedIndexPaths = [IndexPath]()
-    var updatedIndexPaths = [IndexPath]()
+    let activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,23 +134,27 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
-        let activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
+       
         
         activityIndicator.isHidden = false
-        activityIndicator.center = CGPoint(x: cell.frame.width/3, y: cell.frame.height/3)
+        activityIndicator.center = CGPoint(x: cell.frame.width/2, y: cell.frame.height/2)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
         activityIndicator.layer.zPosition = 1
         cell.addSubview(activityIndicator)
-        activityIndicator.startAnimating()
         
-        cell.backgroundColor = UIColor.gray
+        if flickrWasCalled == true{
+            activityIndicator.startAnimating()
+        }
+        
         let photo = fetchedResultsController.object(at: indexPath)
         
         cell.image.image = UIImage(data: photo.photoData! as Data)
-        activityIndicator.stopAnimating()
+        
+//        activityIndicator.stopAnimating()
         
         return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -179,19 +180,16 @@ extension CollectionViewController : NSFetchedResultsControllerDelegate {
         case .insert:
             if let insertIndexPath = newIndexPath{
                 self.myCollectionView.insertItems(at: [insertIndexPath])
-                self.insertedIndexPaths.append(newIndexPath!)
             }
         case .delete:
             if let deleteIndexpath = indexPath{
                 self.myCollectionView.deleteItems(at: [deleteIndexpath])
-                self.deletedIndexPaths.append(indexPath!)
             }
         case .update:
             if let updateIndexPath = indexPath {
                 let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
                 let photo = self.fetchedResultsController.object(at: updateIndexPath)
                 cell.image.image = UIImage(data: photo.photoData! as Data)
-                self.updatedIndexPaths.append(indexPath!)
             }
         case .move:
             if let deleteIndexPath = indexPath {

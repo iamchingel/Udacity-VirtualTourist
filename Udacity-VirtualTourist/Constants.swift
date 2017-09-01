@@ -16,3 +16,4 @@ let radius = "5"
 var selectedPin : Pin?
 var numberOfImagesInPage = 0
 var totalPages = 0
+var flickrWasCalled : Bool = false
