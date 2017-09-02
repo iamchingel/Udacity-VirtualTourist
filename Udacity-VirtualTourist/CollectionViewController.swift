@@ -142,6 +142,7 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
+        
         activityIndicator.isHidden = false
         activityIndicator.center = CGPoint(x: cell.frame.width/2, y: cell.frame.height/2)
         activityIndicator.hidesWhenStopped = true
@@ -150,7 +151,7 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
         cell.addSubview(activityIndicator)
         
        
-            activityIndicator.startAnimating()
+        activityIndicator.startAnimating()
         
         
         let photo = fetchedResultsController.object(at: indexPath)

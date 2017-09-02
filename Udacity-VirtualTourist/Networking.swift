@@ -53,12 +53,30 @@ func getImageURLSFromFlickr(latitude: CLLocationDegrees, longitude: CLLocationDe
         for photo in photoAOD {
             if let url = photo["url_m"] {
                 getImageDataFromURL(url : url as! String)
+//                saveImageURLToCore(url : url as! String)
             }
         }
         
     }
     task.resume()
     
+}
+
+func saveImageURLToCore(url : String){
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let entity = NSEntityDescription.entity(forEntityName: "Photo", in: managedContext)!
+    let photo = NSManagedObject(entity: entity, insertInto: managedContext) as! Photo
+    
+    photo.photoURL = url
+    photo.pin = selectedPin
+    
+    do{
+        try managedContext.save()
+        print("ImageURL saved to Core")
+    }catch {
+        print("Error saving image URL to Core")
+    }
 }
 
 func getImageDataFromURL(url : String){
@@ -87,7 +105,7 @@ func getImageDataFromURL(url : String){
 }
 
 func saveImageDataToCore(imageData : Data){
-//    let pin = CollectionViewController().pin
+
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let managedContext = appDelegate.persistentContainer.viewContext
     let entity = NSEntityDescription.entity(forEntityName: "Photo", in: managedContext)!
