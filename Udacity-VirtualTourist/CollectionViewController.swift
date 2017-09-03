@@ -16,8 +16,6 @@ class CollectionViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var newCollection: UIButton!
     
-    let activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -142,23 +140,33 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! CollectionViewCell
         
-        
+        let activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView()
+
         activityIndicator.isHidden = false
         activityIndicator.center = CGPoint(x: cell.frame.width/2, y: cell.frame.height/2)
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         activityIndicator.layer.zPosition = 1
         cell.addSubview(activityIndicator)
         
        
-        activityIndicator.startAnimating()
         
         
         let photo = fetchedResultsController.object(at: indexPath)
         
-        cell.image.image = UIImage(data: photo.photoData! as Data)
-        
-        activityIndicator.stopAnimating()
+        if photo.photoData == nil {
+        activityIndicator.startAnimating()
+            if let imageData = try? Data(contentsOf: URL(string: photo.photoURL!)!) {
+                DispatchQueue.main.async{
+                    cell.image.image = UIImage(data: imageData)
+                    activityIndicator.stopAnimating()
+                }
+                photo.photoData = imageData as NSData
+            }
+        }
+        else {
+            cell.image.image = UIImage(data: photo.photoData! as Data)
+        }
         
         return cell
         
@@ -192,12 +200,12 @@ extension CollectionViewController : NSFetchedResultsControllerDelegate {
             if let deleteIndexpath = indexPath{
                 self.myCollectionView.deleteItems(at: [deleteIndexpath])
             }
-        case .update:
-            if let updateIndexPath = indexPath {
-                let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
-                let photo = self.fetchedResultsController.object(at: updateIndexPath)
-                cell.image.image = UIImage(data: photo.photoData! as Data)
-            }
+//        case .update:
+//            if let updateIndexPath = indexPath {
+//                let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
+//                let photo = self.fetchedResultsController.object(at: updateIndexPath)
+//                cell.image.image = UIImage(data: photo.photoData! as Data)
+//            }
         case .move:
             if let deleteIndexPath = indexPath {
                 self.myCollectionView.deleteItems(at: [deleteIndexPath])
@@ -205,6 +213,8 @@ extension CollectionViewController : NSFetchedResultsControllerDelegate {
             if let insertIndexPath = newIndexPath {
                 self.myCollectionView.insertItems(at: [insertIndexPath])
             }
+        default:
+            ""
         }
     }
     

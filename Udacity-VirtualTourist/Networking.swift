@@ -52,8 +52,8 @@ func getImageURLSFromFlickr(latitude: CLLocationDegrees, longitude: CLLocationDe
         
         for photo in photoAOD {
             if let url = photo["url_m"] {
-                getImageDataFromURL(url : url as! String)
-//                saveImageURLToCore(url : url as! String)
+//                getImageDataFromURL(url : url as! String)
+                saveImageURLToCore(url : url as! String)
             }
         }
         
