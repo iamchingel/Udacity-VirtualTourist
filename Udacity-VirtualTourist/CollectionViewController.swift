@@ -149,21 +149,28 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
         activityIndicator.layer.zPosition = 1
         cell.addSubview(activityIndicator)
         
-       
-        
-        
         let photo = fetchedResultsController.object(at: indexPath)
         
         if photo.photoData == nil {
-        activityIndicator.startAnimating()
-            if let imageData = try? Data(contentsOf: URL(string: photo.photoURL!)!) {
+            activityIndicator.startAnimating()
+            getImageDataFromURL(url: photo.photoURL!, completion: { (data) in
                 DispatchQueue.main.async{
-                    cell.image.image = UIImage(data: imageData)
+                    cell.image.image = UIImage(data: data)
                     activityIndicator.stopAnimating()
+
                 }
-                photo.photoData = imageData as NSData
-            }
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let managedContext = appDelegate.persistentContainer.viewContext
+                photo.photoData = data as NSData
+                
+                do{
+                   try managedContext.save()
+                }catch{
+                    print("Error saving")
+                }
+            })
         }
+        
         else {
             cell.image.image = UIImage(data: photo.photoData! as Data)
         }
@@ -200,12 +207,6 @@ extension CollectionViewController : NSFetchedResultsControllerDelegate {
             if let deleteIndexpath = indexPath{
                 self.myCollectionView.deleteItems(at: [deleteIndexpath])
             }
-//        case .update:
-//            if let updateIndexPath = indexPath {
-//                let cell = self.myCollectionView.cellForItem(at: updateIndexPath) as! CollectionViewCell
-//                let photo = self.fetchedResultsController.object(at: updateIndexPath)
-//                cell.image.image = UIImage(data: photo.photoData! as Data)
-//            }
         case .move:
             if let deleteIndexPath = indexPath {
                 self.myCollectionView.deleteItems(at: [deleteIndexPath])
@@ -214,7 +215,7 @@ extension CollectionViewController : NSFetchedResultsControllerDelegate {
                 self.myCollectionView.insertItems(at: [insertIndexPath])
             }
         default:
-            ""
+            print()
         }
     }
     
@@ -247,5 +248,5 @@ extension CollectionViewController : NSFetchedResultsControllerDelegate {
 
 
 
-
+// Project Completed - By Sanket Ray on 9/3/2017
 

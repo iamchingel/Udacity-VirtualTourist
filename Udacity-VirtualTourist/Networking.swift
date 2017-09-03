@@ -12,8 +12,6 @@ import CoreLocation
 import CoreData
 
 func getImageURLSFromFlickr(latitude: CLLocationDegrees, longitude: CLLocationDegrees, page : Int){
-  
-    flickrWasCalled = true
     
     let request = NSMutableURLRequest(url: URL(string:"\(apiBaseURL)?method=\(apiMethod)&api_key=\(apiKey)&lat=\(latitude)&lon=\(longitude)&radius=\(radius)&extras=\(extras)&page=\(page)&format=json&nojsoncallback=1&per_page=20")!)
     
@@ -52,7 +50,6 @@ func getImageURLSFromFlickr(latitude: CLLocationDegrees, longitude: CLLocationDe
         
         for photo in photoAOD {
             if let url = photo["url_m"] {
-//                getImageDataFromURL(url : url as! String)
                 saveImageURLToCore(url : url as! String)
             }
         }
@@ -79,7 +76,7 @@ func saveImageURLToCore(url : String){
     }
 }
 
-func getImageDataFromURL(url : String){
+func getImageDataFromURL(url : String, completion : @escaping (_ data : Data) -> Void){
     
     let url = NSURLRequest(url: URL(string: url)!)
     let session = URLSession.shared
@@ -97,29 +94,10 @@ func getImageDataFromURL(url : String){
             return
         }
         print("got data from URL🍊")
-        saveImageDataToCore(imageData: data)
+        completion(data)
         
     }
     task.resume()
-    
-}
-
-func saveImageDataToCore(imageData : Data){
-
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    let managedContext = appDelegate.persistentContainer.viewContext
-    let entity = NSEntityDescription.entity(forEntityName: "Photo", in: managedContext)!
-    let photo = NSManagedObject(entity: entity, insertInto: managedContext) as! Photo
-    
-    photo.photoData = imageData as NSData
-    photo.pin = selectedPin
-
-        do{
-            try managedContext.save()
-            print("IMAGE DATA saved to core data")
-        }catch {
-            print("Could not save the IMAGE DATA to core data")
-        }
     
 }
 
