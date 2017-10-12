@@ -19,6 +19,7 @@ class CollectionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+//      We are adding layout to the myCollectionView to make it look nice...Code has been borrowed.
         let itemSize = UIScreen.main.bounds.width/3 - 3
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsetsMake(10,0,10,0)
@@ -27,6 +28,7 @@ class CollectionViewController: UIViewController {
         layout.minimumLineSpacing = 5
         myCollectionView.collectionViewLayout = layout
 
+//      We are adding the annotation to the map using the selectedPin(type is PIN)
         addAnnotationToMap(latitude: (selectedPin?.latitude)!,longitude: (selectedPin?.longitude)!)
   
         if selectedPin?.photo?.count == 0 {
@@ -247,6 +249,4 @@ extension CollectionViewController : NSFetchedResultsControllerDelegate {
 
 
 
-
-// Project Completed - By Sanket Ray on 9/3/2017
 
