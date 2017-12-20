@@ -51,12 +51,14 @@ class CollectionViewController: UIViewController {
                         }
                     }
                 }
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let managedContext = appDelegate.persistentContainer.viewContext
-                do{
-                    try managedContext.save()
-                }catch {
-                    print("Error saving")
+                DispatchQueue.main.async{
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let managedContext = appDelegate.persistentContainer.viewContext
+                    do{
+                        try managedContext.save()
+                    }catch {
+                        print("Error saving")
+                    }
                 }
             }
         }
@@ -159,16 +161,16 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
                 DispatchQueue.main.async{
                     cell.image.image = UIImage(data: data)
                     activityIndicator.stopAnimating()
-
-                }
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                let managedContext = appDelegate.persistentContainer.viewContext
-                photo.photoData = data as NSData
-                
-                do{
-                   try managedContext.save()
-                }catch{
-                    print("Error saving")
+            
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    let managedContext = appDelegate.persistentContainer.viewContext
+                    photo.photoData = data as NSData
+                    
+                    do{
+                       try managedContext.save()
+                    }catch{
+                        print("Error saving")
+                    }
                 }
             })
         }

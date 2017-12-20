@@ -109,15 +109,6 @@ class PinViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
         pin.setValue(latitude, forKey: "latitude")
         pin.setValue(longitude, forKey: "longitude")
         
-/*
-        We could also use this method. The method written below is advised!
-        
-        let pin = NSManagedObject(entity: entity, insertInto: managedContext) as! Pin
-        pin.latitude = latitude
-        pin.longitude = longitude
-*/
-        
-        
 //      The managedContext is written inside a 'DO' block since, the save method throws.
         do {
             try managedContext.save()
