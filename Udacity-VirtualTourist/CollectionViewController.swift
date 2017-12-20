@@ -33,12 +33,12 @@ class CollectionViewController: UIViewController {
   
         if selectedPin?.photo?.count == 0 {
             
-            getDetailsFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!) { (pages, numberOfImages) in
+            FlickrClient.getDetailsFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!) { (pages, numberOfImages) in
                 
                 if pages != nil {
                     print(pages!,"🍝🍽🍝")
                     let randomPage = arc4random_uniform(UInt32(pages!)) + 1
-                        getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPage))
+                        FlickrClient.getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPage))
                 }
                 
                 if numberOfImages != nil {
@@ -89,7 +89,7 @@ class CollectionViewController: UIViewController {
 
         let randomPageNumber = arc4random_uniform(UInt32(totalPages)) + 1
         print(totalPages,randomPageNumber,"🥕🥕🥕🥕🥕🥕🥕")
-        getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPageNumber))
+        FlickrClient.getImageURLSFromFlickr(latitude: (selectedPin?.latitude)!, longitude: (selectedPin?.longitude)!, page: Int(randomPageNumber))
     }
     
     
@@ -157,7 +157,7 @@ extension CollectionViewController : UICollectionViewDelegate, UICollectionViewD
         
         if photo.photoData == nil {
             activityIndicator.startAnimating()
-            getImageDataFromURL(url: photo.photoURL!, completion: { (data) in
+            FlickrClient.getImageDataFromURL(url: photo.photoURL!, completion: { (data) in
                 DispatchQueue.main.async{
                     cell.image.image = UIImage(data: data)
                     activityIndicator.stopAnimating()
